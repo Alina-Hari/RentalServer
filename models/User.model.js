@@ -18,6 +18,8 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Name is required."],
     },
+    isAgent :{type:Boolean, required: [true, "Are you an agent or a user looking for an apartment?"], default:false},
+  
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
