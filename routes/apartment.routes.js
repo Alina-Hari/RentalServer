@@ -6,7 +6,6 @@ const { isAuthenticated } = require("../middleware/jwt.middleware")
 const fileUploader = require("../config/cloudinary.config");
 
 router.get("/apartments", (req, res, next) => {
-
   Apartment.find({})
     .then(apartments => { res.json(apartments) })
     .catch(err => next(err))
@@ -19,8 +18,8 @@ router.get("/apartments/:apartmentId", (req, res, next) => {
 });
 
 router.post("/apartments", (req, res, next) => {
-  const { apartmentType, floor, price, area, isFurnished, isPetFriendly, country, city, availableDates, images } = req.body
-  Apartment.create({ apartmentType, floor, price, area, isFurnished, isPetFriendly, country, city, availableDates, images })
+  const { apartmentType, floor, price, area, isFurnished, isPetFriendly, country, city, availableDates, address, images } = req.body
+  Apartment.create({ apartmentType, floor, price, area, isFurnished, isPetFriendly, country, city, availableDates,address, images })
     .then(apartment => { res.json(apartment) })
     .catch(err => next(err))
 });
@@ -28,14 +27,13 @@ router.post("/apartments", (req, res, next) => {
 // for agent => add middleware fun
 
 router.put("/apartments/:apartmentId", isAuthenticated, (req, res, next) => {
-  const { apartmentType, floor, price, area, isFurnished, isPetFriendly, country, city, availableDates, isAvailable, images } = req.body
-  Apartment.findByIdAndUpdate(req.params.apartmentId, { apartmentType, floor, price, area, isFurnished, isPetFriendly, country, city, availableDates, isAvailable, images }, { new: true })
+  const { apartmentType, floor, price, area, isFurnished, isPetFriendly, country, city, availableDates,address, isAvailable, images } = req.body
+  Apartment.findByIdAndUpdate(req.params.apartmentId, { apartmentType, floor, price, area, isFurnished, isPetFriendly,address, country, city, availableDates, isAvailable, images }, { new: true })
     .then(apartment => { res.json(apartment) })
     .catch(err => next(err))
 });
 
 router.delete("/apartments/:apartmentId", isAuthenticated, (req, res, next) => {
-
   Apartment.findByIdAndDelete(req.params.apartmentId)
     .then(res.status(204).send())
     .catch(err => next(err))
@@ -53,15 +51,13 @@ router.put("/apartments/:apartmentId", isAuthenticated, (req, res, next) => {
 
 // apartments in a specific city
 
-router.get("/apartments/location/:locationName", (req, res, next) => {
-  const { locationName } = req.params;
-  Apartment.find({ location: locationName })
+router.get("/search", (req, res, next) => {
+  console.log("Request" ,req.query) 
+  Apartment.find(req.query)
     .then(apartments => { res.json(apartments) })
     .catch(err => next(err))
-});
-
-
-
+  }
+);
 router.get("/apartments/:userId", isAuthenticated, (req, res, next) => {
   Apartment.find({ usersBooked: req.params.userId }) // check an array
     .then(apartments => { res.json(apartments) })

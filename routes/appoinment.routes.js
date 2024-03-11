@@ -3,8 +3,9 @@ const router = express.Router();
 const Appoinment = require("../models/Appoinment.model");
 //for agent
 router.get("/appoinments", (req, res, next) => {
-
   Appoinment.find({})
+  .populate('userBooked', ['email','name'])
+  .populate('apartmentId')
     .then(appoinments => { res.json(appoinments) })
     .catch(err => next(err))
 });
@@ -17,12 +18,16 @@ router.get("/appoinments/:apartmentId", (req, res, next) => {
 });
 
 //for user
-router.get("/appoinments/:userId", (req, res, next) => {
+router.get("/appoinments/user/:userId", (req, res, next) => {
   const { userId } = req.params;
-  Appoinment.find({ userId })
+  console.log(userId)
+  Appoinment.find({ userBooked : userId })
+  .populate('userBooked')
+  .populate('apartmentId')
     .then(appoinments => { res.json(appoinments) })
     .catch(err => next(err))
 });
+
 router.post("/appoinments", (req, res, next) => {
  const { apartmentId, time , userBooked} = req.body;
   Appoinment.create({ apartmentId, time , userBooked})
