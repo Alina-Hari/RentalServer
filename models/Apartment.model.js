@@ -43,8 +43,9 @@ const apartmentSchema = new Schema(
             type: Boolean,
             default: true
         },
-        availableDates:{type : [Date], min:Date.now},
-        address: {type : String}
+        availableDates: { type: [Date], min: Date.now },
+        address: { type: String },
+        description: String
     },
 
     {
