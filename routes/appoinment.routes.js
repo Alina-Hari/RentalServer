@@ -41,6 +41,12 @@ router.delete("/appoinments/:appoinmentId", isAuthenticated, (req, res, next) =>
     .then(res.status(204).send())
     .catch(err => next(err))
 });
+router.delete("/delete", isAuthenticated, (req, res, next) => {
+  console.log("Request" ,req.query) 
+  Appoinment.deleteMany(req.query)
+    .then(result => { res.json(result) })
+    .catch(err => next(err))  
+});
 
 
 module.exports = router;
