@@ -19,10 +19,10 @@ npm run dev
 
 PORT=5005
 ORIGIN=http://localhost:5173
-TOKEN_SECRET=y0uRt0k3N$eCr3T
-CLOUDINARY_NAME=dopreefd1
-CLOUDINARY_KEY=394288817755618
-CLOUDINARY_SECRET=U0KEmdWbBqc77F4uFpfnwWfrnpo
+TOKEN_SECRET=AddYoursecrethere
+CLOUDINARY_NAME=AddyourNameHere
+CLOUDINARY_KEY=AddYourKeyHere
+CLOUDINARY_SECRET=AddYourSecretHere
 
 # link to demo
 ## frontend [click&rent](https://clickandrent.netlify.app/)
