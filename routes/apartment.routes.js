@@ -79,16 +79,3 @@ router.post("/upload", fileUploader.array("images", 5), (req, res, next) => {
 
 module.exports = router;
 
-
-
-// get /apartments X
-// get /apartments/:apartmentId X
-// post /apartments X
-// put /apartments/:apartmentId  --
-// delete /apartments/:apartmentId X
-
-
-// get appartments/location/ X
-//
-
-// get /appartments/user/ --
